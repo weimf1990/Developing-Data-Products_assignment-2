@@ -1,0 +1,36 @@
+---
+title: "Developing data products_assignment 2"
+author: "weimf"
+date: "1/13/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## My plot
+
+I will use the data `Salaries' of carData dataset in R to analyze the academic salaries for Professors in the U.S. Noted that the data are drawn from 2008-09.
+
+```{r, warning=FALSE}
+library(ggplot2)
+library(plotly)
+library(carData)
+
+p1 <- plot_ly(Salaries, x = ~yrs.service, y = ~salary, type = "scatter", color = ~discipline) %>%
+        layout(title = 'Salaries for Professors', xaxis = list(title = 'years of service'), yaxis = list(title = 'salary (in dollars)'))
+p1
+
+```
+Figure 1 portrays the relation of years of service and the salary levels. The points A and B represent the appointments from the "theoretical” and "applied" departments, respectively.  
+In general, the salary level increases with the years they work in each type of department. The increase in salaries seems to be more prominent for those from the applied department. However, the changes of salaries for those working for more than 40 years does not seem obvious.
+
+```{r, warning=FALSE}
+p2 <- plot_ly(Salaries, y = ~salary, x = ~rank, color = ~sex, type = "box") %>% 
+         layout(boxmode = "group", 
+         xaxis = list(title=''), 
+         yaxis = list(title='salary (in dollars)'))
+p2
+```
+The rank is another proxy for experiences of service. I then break down the results by the sex of professors in Figure 2. The average salaries significantly increase with its rank. However, there appears to be a gender gap at each rank and males tend to earn more than their female cohorts. Another interesting point is that males encounter more varied income ranges except for the position of associate professors.
